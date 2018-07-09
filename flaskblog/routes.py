@@ -73,6 +73,12 @@ def login():
             flash('Login Unsuccessful! Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
+	
+# #########################################################
+# PROTECTED Route
+# NAME Logout
+# DESC Log out of the current session 
+# #########################################################
 @app.route('/logout')
 def logout():
     logout_user()
@@ -96,6 +102,11 @@ def save_picture(form_picture):
     return picture_fn
 
 
+# #########################################################
+# PROTECTED Route
+# NAME Account
+# DESC Open the account page of the logged in user 
+# #########################################################
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
@@ -116,6 +127,11 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
+# #########################################################
+# PROTECTED Route
+# NAME Add New Post
+# DESC Allow the user to add a new post
+# #########################################################
 @app.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -129,6 +145,11 @@ def new_post():
     return render_template('create_post.html', title='New Post', form=form, legend='New Post')
 
 
+# #########################################################
+# PUBLIC Route
+# NAME Open Post 
+# DESC Open a selected post by providing the post id
+# #########################################################
 @app.route('/post/<int:post_id>')
 def post(post_id):
     # Get post or give 404 error
@@ -136,6 +157,11 @@ def post(post_id):
     return render_template('post.html', title=post.title, post=post)
 
 
+# #########################################################
+# PROTECTED Route
+# NAME Update Post
+# DESC Allows user to update their posts
+# #########################################################
 @app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
 @login_required
 def update_post(post_id):
@@ -155,6 +181,11 @@ def update_post(post_id):
     return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
 
 
+# #########################################################
+# PROTECTED Route
+# NAME Delete Post
+# DESC Allows user to delete their posts
+# #########################################################
 @app.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
